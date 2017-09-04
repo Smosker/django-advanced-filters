@@ -117,9 +117,10 @@ class AdvancedFilterAdmin(admin.ModelAdmin):
     model = AdvancedFilter
     form = AdvancedFilterForm
     extra = 0
+    save_as = True
 
     list_display = ('title', 'created_by', )
-    readonly_fields = ('created_by', 'model', 'created_at', )
+    readonly_fields = ('model', 'created_at', )
 
     def has_add_permission(self, obj=None):
         return False
