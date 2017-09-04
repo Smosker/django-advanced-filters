@@ -249,7 +249,7 @@ class AdvancedFilterForm(CleanWhiteSpacesMixin, forms.ModelForm):
     """ Form to save/edit advanced filter forms """
     class Meta:
         model = AdvancedFilter
-        fields = ('title',)
+        fields = ('title', 'created_by', )
 
     class Media:
         required_js = [static('admin/js/%sjquery.min.js' %

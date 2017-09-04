@@ -122,9 +122,6 @@ class AdvancedFilterAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_by', )
     readonly_fields = ('model', 'created_at', )
 
-    def has_add_permission(self, obj=None):
-        return False
-
     def save_model(self, request, new_object, *args, **kwargs):
         if new_object and not new_object.pk:
             new_object.created_by = request.user
