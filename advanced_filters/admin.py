@@ -1,5 +1,7 @@
 import logging
+from ajax_select.fields import AutoCompleteSelectField
 
+from django.contrib.admin.helpers import ActionForm
 from django.conf import settings
 from django.contrib import admin, messages
 from django.http import HttpResponseRedirect
@@ -17,6 +19,10 @@ from .models import AdvancedFilter
 
 
 logger = logging.getLogger('advanced_filters.admin')
+
+
+class ShareChoice(ActionForm):
+    share_with = AutoCompleteSelectField('user', require=False)
 
 
 class AdvancedListFilters(admin.SimpleListFilter):
@@ -114,12 +120,26 @@ class AdminAdvancedFiltersMixin(object):
 
 
 class AdvancedFilterAdmin(admin.ModelAdmin):
+    action_form = ShareChoice
     model = AdvancedFilter
     form = AdvancedFilterForm
     extra = 0
+    actions = ['share_filters']
 
     list_display = ('title', 'created_by', )
     readonly_fields = ('created_by', 'model', 'created_at', )
+
+    def run_plans(self, request, queryset):
+        share_with = request.POST.get('share_with')
+        if not share_with:
+            raise AttributeError('You should select user to share with')
+        new_filters = list()
+        for obj in queryset.values():
+            obj['id'] = None
+            obj['created_by_id'] = share_with
+            new_filters.append(self.model(**obj))
+        self.model.objects.bulk_create(new_filters)
+        self.message_user(request, 'Successfully shared plans')
 
     def has_add_permission(self, obj=None):
         return False
