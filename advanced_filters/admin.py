@@ -129,7 +129,7 @@ class AdvancedFilterAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_by', )
     readonly_fields = ('created_by', 'model', 'created_at', )
 
-    def run_plans(self, request, queryset):
+    def share_filters(self, request, queryset):
         share_with = request.POST.get('share_with')
         if not share_with:
             raise AttributeError('You should select user to share with')
