@@ -302,9 +302,6 @@ class AdvancedFilterForm(CleanWhiteSpacesMixin, forms.ModelForm):
                 model_admin = admin.site._registry[self._model]
             except KeyError:
                 logger.debug('No ModelAdmin registered for %s', self._model)
-        else:
-            raise Exception('Adding new AdvancedFilter from admin is '
-                            'not supported')
 
         self._filter_fields = filter_fields or getattr(
             model_admin, 'advanced_filter_fields', ())
