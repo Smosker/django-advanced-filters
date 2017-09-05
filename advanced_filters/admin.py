@@ -22,7 +22,7 @@ logger = logging.getLogger('advanced_filters.admin')
 
 
 class ShareChoice(ActionForm):
-    share_with = AutoCompleteSelectField('user', require=False)
+    share_with = AutoCompleteSelectField('user', required=False)
 
 
 class AdvancedListFilters(admin.SimpleListFilter):
