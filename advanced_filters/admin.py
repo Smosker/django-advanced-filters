@@ -138,7 +138,9 @@ class AdvancedFilterAdmin(admin.ModelAdmin):
             obj['id'] = None
             obj['created_by_id'] = share_with
             new_filters.append(self.model(**obj))
-        self.model.objects.bulk_create(new_filters)
+        new_filters = self.model.objects.bulk_create(new_filters)
+        for filt in new_filters:
+            filt.users.add(share_with)
         self.message_user(request, 'Successfully shared plans')
 
     def has_add_permission(self, obj=None):
