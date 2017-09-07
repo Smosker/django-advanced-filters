@@ -12,7 +12,7 @@
 	{{ block.super }}
 	{# Add a link to the end of the tool items #}
 	{% if advanced_filters %}
-		<li><div class="afilters">
+		<li><div class="btn btn-primary afilters">
 			<a class="ajax-popup-link icons-object-tools-add-link" href="#advanced_filters" >{% trans "Advanced Filter" %}</a>{% if '_afilter' in request.GET %}<a class="edit-link" href="{% url 'admin:advanced_filters_advancedfilter_change' current_afilter %}" >{% trans "Edit" %}</a>
 			{% endif %}
 		</div></li>
