@@ -8,7 +8,7 @@
 	{{ block.super }}
 {% endblock extrastyle %}
 
-{% block object-tools-items %}
+{% block object-tools %}
 	{{ block.super }}
 	{# Add a link to the end of the tool items #}
 	{% if advanced_filters %}
@@ -19,7 +19,7 @@
 		</div></li>
 	</ul>
 	{% endif %}
-{% endblock object-tools-items %}
+{% endblock object-tools %}
 
 {% block content %}
 	{{ block.super }}
