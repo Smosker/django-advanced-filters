@@ -8,16 +8,18 @@
 	{{ block.super }}
 {% endblock extrastyle %}
 
-{% block object-tools %}
+{% block search %}
 	{{ block.super }}
 	{# Add a link to the end of the tool items #}
 	{% if advanced_filters %}
-		<div class="afilters">
+	<ul class="nav navbar-nav navbar-right">
+		<li><div class="afilters">
 			<a class="btn btn-primary ajax-popup-link icons-object-tools-add-link" href="#advanced_filters" >{% trans "Advanced Filter" %}</a>{% if '_afilter' in request.GET %}<a class="btn btn-primary edit-link" href="{% url 'admin:advanced_filters_advancedfilter_change' current_afilter %}" >{% trans "Edit" %}</a>
 			{% endif %}
-		</div>
+		</div></li>
+	</ul>
 	{% endif %}
-{% endblock object-tools %}
+{% endblock search %}
 
 {% block content %}
 	{{ block.super }}
