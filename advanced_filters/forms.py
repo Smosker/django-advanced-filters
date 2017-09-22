@@ -339,6 +339,12 @@ class AdvancedFilterForm(CleanWhiteSpacesMixin, forms.ModelForm):
             forms.append(form)
         return forms
 
+    def generate_url_query(self):
+        for form in self._non_deleted_forms:
+            if not hasattr(form, 'cleaned_data'):
+                continue
+            print(form.cleaned_data)
+
     def generate_query(self):
         """ Reduces multiple queries into a single usable query """
         query = Q()

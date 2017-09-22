@@ -76,14 +76,23 @@ class AdminAdvancedFiltersMixin(object):
         self.list_filter = (AdvancedListFilters,) + tuple(self.list_filter)
 
     def save_advanced_filter(self, request, form):
+        if "filter_only" in (request.GET or request.POST):
+            query = form.generate_query()
+            print(query)
+            query_dict = form.generate_url_query()
+            print(query_dict)
+            print('here')
+            params = ''
+            url = "{path}?{qparams}".format(
+                path=request.path,
+                qparams=params,
+            )
+            return HttpResponseRedirect(url)
+
         if form.is_valid():
             afilter = form.save(commit=False)
             afilter.created_by = request.user
             afilter.query = form.generate_query()
-            if "filter_only" in (request.GET or request.POST):
-                print(form.generate_query())
-                print('here')
-                return
             afilter.save()
             afilter.users.add(request.user)
             messages.add_message(
