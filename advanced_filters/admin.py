@@ -77,10 +77,7 @@ class AdminAdvancedFiltersMixin(object):
 
     def save_advanced_filter(self, request, form):
         if "filter_only" in (request.GET or request.POST):
-            query = form.generate_query()
-            print(query)
             query_url = form.generate_url_query()
-            print(query_url)
             url = "{path}?{qparams}".format(
                 path=request.path,
                 qparams=query_url,
