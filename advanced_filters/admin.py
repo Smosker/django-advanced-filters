@@ -80,6 +80,10 @@ class AdminAdvancedFiltersMixin(object):
             afilter = form.save(commit=False)
             afilter.created_by = request.user
             afilter.query = form.generate_query()
+            if "filter_only" in (request.GET or request.POST):
+                print(form.generate_query())
+                print('here')
+                return
             afilter.save()
             afilter.users.add(request.user)
             messages.add_message(
