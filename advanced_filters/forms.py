@@ -346,6 +346,8 @@ class AdvancedFilterForm(CleanWhiteSpacesMixin, forms.ModelForm):
         for form in self._non_deleted_forms:
             if not hasattr(form, 'cleaned_data'):
                 continue
+            if form.cleaned_data['field'] == "_OR":
+                continue
             data = form.cleaned_data
             query_map[(data['field'], data['operator'])].append(data['value'])
         for key, value in query_map.items():
