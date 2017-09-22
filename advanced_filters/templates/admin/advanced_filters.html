@@ -17,6 +17,7 @@
 			<a class="btn btn-primary ajax-popup-link icons-object-tools-add-link" href="#advanced_filters" >{% trans "Advanced Filter" %}</a>{% if '_afilter' in request.GET %}<a class="btn btn-primary edit-link" href="{% url 'admin:advanced_filters_advancedfilter_change' current_afilter %}" >{% trans "Edit" %}</a>
 			{% endif %}
 		</div></li>
+		<li>{% if has_change_permission %}<a class="btn btn-primary" href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %}</li>
 	</ul>
 	{% endif %}
 {% endblock search %}
