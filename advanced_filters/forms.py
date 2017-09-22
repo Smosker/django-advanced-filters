@@ -2,6 +2,7 @@ from datetime import datetime as dt
 from pprint import pformat
 import logging
 import operator
+import collections
 
 from django import forms
 
@@ -340,10 +341,20 @@ class AdvancedFilterForm(CleanWhiteSpacesMixin, forms.ModelForm):
         return forms
 
     def generate_url_query(self):
+        query_map = collections.defaultdict(list)
+        result_query = []
         for form in self._non_deleted_forms:
             if not hasattr(form, 'cleaned_data'):
                 continue
-            print(form.cleaned_data)
+            data = form.cleaned_data
+            query_map[(data['field'], data['operator'])].append(data['value'])
+        for key, value in query_map.items():
+            field, param = key
+            if len(value) > 1:
+                param = 'in'
+            value = ','.join(value)
+            result_query.append('{}__{}={}'.format(field, param, value))
+        return '&'.join(result_query)
 
     def generate_query(self):
         """ Reduces multiple queries into a single usable query """

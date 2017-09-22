@@ -79,13 +79,11 @@ class AdminAdvancedFiltersMixin(object):
         if "filter_only" in (request.GET or request.POST):
             query = form.generate_query()
             print(query)
-            query_dict = form.generate_url_query()
-            print(query_dict)
-            print('here')
-            params = ''
+            query_url = form.generate_url_query()
+            print(query_url)
             url = "{path}?{qparams}".format(
                 path=request.path,
-                qparams=params,
+                qparams=query_url,
             )
             return HttpResponseRedirect(url)
 
