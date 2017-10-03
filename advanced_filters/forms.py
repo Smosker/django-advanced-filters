@@ -89,9 +89,8 @@ class AdvancedFilterQueryForm(CleanWhiteSpacesMixin, forms.Form):
         """
         Iterate over passed model fields tuple and update initial choices.
         """
-        return tuple(sorted(
-            [(fquery, capfirst(fname)) for fquery, fname in fields.items()],
-            key=lambda f: f[1].lower())
+        return tuple(
+            [(fquery, capfirst(fname)) for fquery, fname in fields.items()]
         ) + self.FIELD_CHOICES
 
     def _build_query_dict(self, formdata=None):
