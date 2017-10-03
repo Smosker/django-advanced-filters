@@ -349,7 +349,6 @@ class AdvancedFilterForm(CleanWhiteSpacesMixin, forms.ModelForm):
             if form.cleaned_data['field'] == "_OR":
                 continue
             data = form.cleaned_data
-            print(data, 7777)
             query_map[(data['field'], data['operator'])].append(data.get('value'))
         for key, value in query_map.items():
             field, param = key
