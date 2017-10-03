@@ -271,7 +271,7 @@ class AdvancedFilterForm(CleanWhiteSpacesMixin, forms.ModelForm):
         overwrite the field's verbose name with the given name for display
         purposes.
         """
-        model_fields = {}
+        model_fields = collections.OrderedDict()
         for field in fields:
                 if isinstance(field, tuple) and len(field) == 2:
                     field, verbose_name = field[0], field[1]
