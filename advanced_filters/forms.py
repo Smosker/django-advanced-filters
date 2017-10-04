@@ -321,7 +321,6 @@ class AdvancedFilterForm(CleanWhiteSpacesMixin, forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(AdvancedFilterForm, self).clean()
-        print(cleaned_data, 55555)
         if not self.fields_formset.is_valid():
             logger.debug(
                 "Errors validating advanced query filters: %s",
@@ -338,6 +337,9 @@ class AdvancedFilterForm(CleanWhiteSpacesMixin, forms.ModelForm):
         for form in self.fields_formset.forms:
             if form in self.fields_formset.deleted_forms:
                 continue  # skip deleted forms when generating query
+
+            print(form, 55555)
+            print(form.cleaned_data, 33333)
             forms.append(form)
         return forms
 
