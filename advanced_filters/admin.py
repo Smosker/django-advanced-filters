@@ -1,4 +1,5 @@
 import logging
+import itertools
 from ajax_select.fields import AutoCompleteSelectField
 
 from django.contrib.admin.helpers import ActionForm
@@ -76,20 +77,14 @@ class AdminAdvancedFiltersMixin(object):
         self.list_filter = (AdvancedListFilters,) + tuple(self.list_filter)
 
     def save_advanced_filter(self, request, form):
-        print(request, form, request.GET, request.POST, 555)
-        print(request.GET, 1111)
-        print(request.POST, 22222)
-        print("filter_only" in request.GET, 6666)
-        print("filter_only" in request.POST, 7777)
-        print("filter_only" in (request.GET or request.POST), 66688886)
-        if "filter_only" in (request.GET or request.POST):
+
+        if "filter_only" in itertools.chain(request.GET, request.POST):
             query_url = form.generate_url_query()
             url = "{path}?{qparams}".format(
                 path=request.path,
                 qparams=query_url,
             )
             return HttpResponseRedirect(url)
-        print('here 1111111111111')
         if form.is_valid():
             afilter = form.save(commit=False)
             afilter.created_by = request.user
