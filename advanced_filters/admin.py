@@ -84,7 +84,7 @@ class AdminAdvancedFiltersMixin(object):
                 qparams=query_url,
             )
             return HttpResponseRedirect(url)
-
+        print('here 1111111111111')
         if form.is_valid():
             afilter = form.save(commit=False)
             afilter.created_by = request.user
