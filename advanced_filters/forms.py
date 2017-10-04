@@ -363,7 +363,7 @@ class AdvancedFilterForm(CleanWhiteSpacesMixin, forms.ModelForm):
                 value = ['True']
             elif value and re.match(r'^\d{2}\.\d{2}\.\d{2}$', value[0]):
                 day, month, year = value[0].split('.')
-                value = '20{}-{}-{}'.format(year, month, day)
+                value[0] = '20{}-{}-{}'.format(year, month, day)
             if len(value) > 1:
                 param = 'in'
             value = ','.join(value)
