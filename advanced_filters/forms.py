@@ -339,7 +339,6 @@ class AdvancedFilterForm(CleanWhiteSpacesMixin, forms.ModelForm):
                 continue  # skip deleted forms when generating query
 
             if hasattr(form, 'cleaned_data'):
-                print(form.cleaned_data, 5555)
                 value = form.cleaned_data.get('value')
                 if re.match(r'^\d{2}\.\d{2}\.\d{2}$', value):
                     day, month, year = value.split('.')
@@ -367,9 +366,6 @@ class AdvancedFilterForm(CleanWhiteSpacesMixin, forms.ModelForm):
                 continue
             elif param == 'isnull':
                 value = ['True']
-            #elif value and re.match(r'^\d{2}\.\d{2}\.\d{2}$', value[0]):
-            #    day, month, year = value[0].split('.')
-            #    value[0] = '20{}-{}-{}'.format(year, month, day)
             if len(value) > 1:
                 param = 'in'
             value = ','.join(value)
