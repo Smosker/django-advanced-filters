@@ -77,6 +77,11 @@ class AdminAdvancedFiltersMixin(object):
 
     def save_advanced_filter(self, request, form):
         print(request, form, request.GET, request.POST, 555)
+        print(request.GET, 1111)
+        print(request.POST, 22222)
+        print("filter_only" in request.GET, 6666)
+        print("filter_only" in request.POST, 7777)
+        print("filter_only" in (request.GET or request.POST), 66688886)
         if "filter_only" in (request.GET or request.POST):
             query_url = form.generate_url_query()
             url = "{path}?{qparams}".format(
