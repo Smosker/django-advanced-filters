@@ -3,6 +3,7 @@ from pprint import pformat
 import logging
 import operator
 import collections
+import re
 
 from django import forms
 
@@ -320,6 +321,7 @@ class AdvancedFilterForm(CleanWhiteSpacesMixin, forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(AdvancedFilterForm, self).clean()
+        print(cleaned_data, 55555)
         if not self.fields_formset.is_valid():
             logger.debug(
                 "Errors validating advanced query filters: %s",
@@ -359,6 +361,9 @@ class AdvancedFilterForm(CleanWhiteSpacesMixin, forms.ModelForm):
                 continue
             elif param == 'isnull':
                 value = ['True']
+            elif re.match(r'^\d{2}\.\d{2}\.\d{2}$', value):
+                day, month, year = value.split('.')
+                value = '{}-{}-{}'.format(year, month, day)
             if len(value) > 1:
                 param = 'in'
             value = ','.join(value)

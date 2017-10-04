@@ -31,7 +31,7 @@
 		{% with advanced_filters.fields_formset as formset %}
 			<div class="white-popup mfp-hide" id="advanced_filters">
 				<h1>{% trans "Create advanced filter" %}:</h1>
-				<div class="alert alert-info">{% blocktrans %}<p>You should pass date values in format "YYYY-MM-DD"</p>{% endblocktrans %}</div>
+				<div class="alert alert-info">{% blocktrans %}<p>You should pass date values in format "DD.MM.YY"</p>{% endblocktrans %}</div>
 				<form novalidate method="POST" id="advanced_filters_form">
 					{% csrf_token %}
 					{{ formset.management_form }}
