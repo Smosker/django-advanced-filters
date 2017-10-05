@@ -340,9 +340,9 @@ class AdvancedFilterForm(CleanWhiteSpacesMixin, forms.ModelForm):
 
             if hasattr(form, 'cleaned_data'):
                 value = form.cleaned_data.get('value')
-                if re.match(r'^\d{2}\.\d{2}\.\d{2}$', value):
+                if re.match(r'^\d{2}\.\d{2}\.\d{4}$', value):
                     day, month, year = value.split('.')
-                    form.cleaned_data['value'] = '20{}-{}-{}'.format(year, month, day)
+                    form.cleaned_data['value'] = '{}-{}-{}'.format(year, month, day)
             forms.append(form)
         return forms
 
